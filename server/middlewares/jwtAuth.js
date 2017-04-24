@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const secret = process.env.SECRET || 'clapp for yourself';
+const secret = process.env.SECRET || 'clap for yourself';
 const Auth = {
   verifyToken(req, res, next) {
     const token = req.headers.authorization || req.headers['x-access-token'];
@@ -15,6 +15,7 @@ const Auth = {
       }
 
       req.decoded = decoded;
+      next();
     });
   }
 };

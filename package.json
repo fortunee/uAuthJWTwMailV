@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/andela-efortune/uAuthJWTwMailV/issues"
   },
-  "homepage": "https://github.com/andela-efortune/uAuthJWTwMailV#readme"
+  "homepage": "https://github.com/andela-efortune/uAuthJWTwMailV#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
 }

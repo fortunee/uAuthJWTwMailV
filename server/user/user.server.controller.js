@@ -5,7 +5,8 @@ import Auth from './../middlewares/jwtAuth';
 
 exports.createUser = (req, res) => {
   req.body.password = pHasherMatcher.hashPassword(req.body.password);
-  User.saveUser(req.body, (err, user) => {
-    // Please save the user. Thanks
+  const user = req.body;
+  User.create(user).then((data) => {
+    res.status(201).send(data);
   });
 };

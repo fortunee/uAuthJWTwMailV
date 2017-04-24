@@ -3,7 +3,6 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import Routes from './server/routes';
 import config from './server/config/config';
-import db from './server/config/db';
 
 const app = express();
 
@@ -19,11 +18,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve('client/index.html'));
 });
 
-require('./server/routes')(app);
+Routes(app);
 
-const port = config.server.port;
+const port = process.env.PORT || 8090;
 
-app.listen(process.env.PORT || port);
+app.listen(port);
 
 /* eslint-disable no-console */
 console.log(`Look me up on http://localhost:${port}`);

@@ -11,7 +11,7 @@ const Auth = {
 
     jwt.verify(token, secret, (err, decoded) => {
       if (err) {
-        res.status(401).send({ message: 'Invalid credentials' });
+        return res.status(401).send({ message: 'Invalid credentials' });
       }
 
       req.decoded = decoded;

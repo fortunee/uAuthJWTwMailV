@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import User from './user.server.model';
 import pHasherMatcher from './../middlewares/pHasherMatcher';
 import Auth from './../middlewares/jwtAuth';
+import { sendEmailVerification } from './../middlewares/mail';
 
 const secret = process.env.SECRET || 'I see you';
 
@@ -14,6 +15,7 @@ exports.createUser = (req, res) => {
       userId: user._id,
       username: user.username
     }, secret, { expiresIn: '2 days' });
+    sendEmailVerification(user.email, token);
     return res.status(201).send({
       username: user.username,
       email: user.email,

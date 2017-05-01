@@ -1,9 +1,12 @@
-import { createUser } from './user.server.controller';
+import { createUser, verifyEmail } from './user.server.controller';
 
-exports.userRoutes = (app) => {
-  app.post('/user', createUser);
-  app.post('/login');
-  app.post('/logout');
-  app.post('/forgotPassword');
-  app.get('/verifyEmail/:token');
+exports.userRoutes = (router) => {
+  router.get('/', (req, res) => {
+    res.send({ message: 'Working for this endpoint' });
+  });
+  router.post('/user', createUser);
+  router.post('/login');
+  router.post('/logout');
+  router.post('/forgotPassword');
+  router.get('/verify/:token', verifyEmail);
 };

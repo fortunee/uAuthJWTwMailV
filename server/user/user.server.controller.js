@@ -25,3 +25,35 @@ exports.createUser = (req, res) => {
     res.status(400).send(err.errors);
   });
 };
+
+exports.verifyEmail = (req, res) => {
+  const token = req.params.token;
+  jwt.verify(token, secret, (err, decoded) => {
+    if (decoded === undefined) {
+      return res.status(404).send({ message: 'Invalid verification link' });
+    }
+
+    User.findOne({ _id: decoded.userId, username: decoded.username }, (err, user) => {
+      if (err) {
+        return res.status(404).send({ message: 'User not found' });
+      }
+
+      if (user === null) {
+        return res.status(404).send({ message: 'Invalid verification link' });
+      }
+
+      if (user.isVerified) {
+        return res.status(400).send({ message: 'User is already verified' });
+      }
+
+      user.isVerified = true;
+      User.updateUser(user, (err, verifiedUser) => {
+        if (err) {
+          return res.status(400).send({ message: 'User still unveritfied' });
+        }
+
+        return res.status(200).send({ message: 'User successfully verified' });
+      });
+    });
+  });
+};

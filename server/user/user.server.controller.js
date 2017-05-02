@@ -51,7 +51,7 @@ exports.verifyEmail = (req, res) => {
       user.isVerified = true;
       User.updateUser(user, (err, verifiedUser) => {
         if (err) {
-          return res.status(400).send({ message: 'User still unveritfied' });
+          return res.status(400).send({ message: 'User still unverified' });
         }
 
         return res.status(200).send({ message: 'User successfully verified' });

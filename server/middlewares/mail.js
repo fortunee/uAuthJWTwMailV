@@ -14,6 +14,10 @@ exports.sendEmailVerification = (email, token) => {
   };
 
   mailgun.messages().send(message, (error, body) => {
-    console.log(error, body);
+    if (error) {
+      return error;
+    }
+
+    return body;
   });
 };
